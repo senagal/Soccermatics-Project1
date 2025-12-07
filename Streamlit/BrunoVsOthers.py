@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import os
+
 st.set_page_config(page_title="Bruno vs Other midfielders in the EURO 2024", layout="wide")
 
 # ---------------------------
@@ -11,19 +12,15 @@ st.set_page_config(page_title="Bruno vs Other midfielders in the EURO 2024", lay
 def load_data():
     BASE_DIR = os.path.dirname(__file__)   # folder of current .py file
     CSV_PATH = os.path.join(BASE_DIR, "euro2024_midfielders_summary.csv")
-
     df = pd.read_csv(CSV_PATH)
     return df
+
 full_stats = load_data()
 
 # ---------------------------
 # Player Selection
 # ---------------------------
 BRUNO_ID = 5204
-
-# Split Bruno from peers
-bruno_row = full_stats[full_stats['player_id'] == BRUNO_ID]
-peers_df = full_stats[full_stats['player_id'] != BRUNO_ID]
 
 # ---------------------------
 # Metric Selection
@@ -36,36 +33,34 @@ metric = st.selectbox(
 
 st.title("Bruno Fernandes vs Other midfielders in the EURO 2024")
 st.write("This comparison only includes players with above 150 total minutes played")
+
 # ---------------------------
-# Create highlight column
+# Create highlight column (string for color)
 # ---------------------------
-full_stats["is_bruno"] = full_stats["player_id"] == BRUNO_ID
+full_stats["highlight"] = full_stats["player_id"].apply(lambda x: "Bruno" if x == BRUNO_ID else "Peer")
 
 # ---------------------------
 # Horizontal Bar Chart (Plotly)
 # ---------------------------
 st.subheader("Horizontal Bar Chart")
 
+# Only include hover columns that exist in DataFrame
 hover_cols = [
     "matches_played", "total_minutes_played",
     "total_passes", "passes_per90",
     "total_shot_assists", "total_goal_assists",
     "shot_assists_per90", "goal_assists_per90"
 ]
-
-# Build hover_data dict safely
-hover_dict = {"is_bruno": False}
-for col in hover_cols:
-    hover_dict[col] = True
+hover_cols = [col for col in hover_cols if col in full_stats.columns]
 
 fig_bar = px.bar(
     full_stats,
     x=metric,
     y='player_name',
     orientation='h',
-    color="is_bruno",
-    color_discrete_map={True: 'red', False: 'blue'},
-    hover_data=hover_dict
+    color="highlight",
+    color_discrete_map={"Bruno": "red", "Peer": "blue"},
+    hover_data=hover_cols
 )
 
 fig_bar.update_layout(
