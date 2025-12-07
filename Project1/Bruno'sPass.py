@@ -18,7 +18,7 @@ match_team_names = {}
 
 for idx, m_id in enumerate(match_ids):
     df, related, freeze, tactics = parser.event(m_id)
-    df['match_id'] = m_id  # ✅ ensure match_id exists
+    df['match_id'] = m_id 
     all_events.append(df)
 
     teams = df['team_name'].dropna().unique().tolist()
@@ -61,9 +61,11 @@ color_map = dict(zip(match_ids, colors))
 pitch = Pitch(pitch_type='statsbomb', line_color='black')
 fig, ax = pitch.draw(figsize=(14, 9))
 
-# Normal passes
+# Normal passes (with counts in legend)
 for m_id in match_ids:
     match_passes = passes[passes['match_id'] == m_id]
+
+    pass_count = len(match_passes)
 
     pitch.arrows(
         match_passes['x'], match_passes['y'],
@@ -72,7 +74,7 @@ for m_id in match_ids:
         width=1.2, headwidth=4, headlength=4,
         color=color_map[m_id],
         alpha=1.00,
-        label=f"Passes ({match_team_names[m_id]})"
+        label=f"{match_team_names[m_id]} — Passes: {pass_count}"
     )
 
 # Shot assists (red)
@@ -82,7 +84,7 @@ pitch.arrows(
     ax=ax,
     width=3, headwidth=7, headlength=7,
     color='red', alpha=1.0,
-    label="Shot Assists"
+    label=f"Shot Assists: {len(shot_assists)}"
 )
 
 # Goal assists (yellow)
@@ -92,7 +94,7 @@ pitch.arrows(
     ax=ax,
     width=3.5, headwidth=8, headlength=8,
     color='yellow', alpha=1.0,
-    label="Goal Assists"
+    label=f"Goal Assists: {len(goal_assists)}"
 )
 
 plt.title(f"{player_name}: Passes, Shot Assists and Goal Assists (Euro 2024)", fontsize=16)
