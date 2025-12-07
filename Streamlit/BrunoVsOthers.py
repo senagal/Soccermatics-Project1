@@ -12,16 +12,37 @@ st.set_page_config(page_title="Bruno vs Other midfielders in the EURO 2024", lay
 # ---------------------------
 @st.cache_data
 def load_data():
-    # Use relative path, works locally and on Streamlit Cloud
+    # Use relative path
     CSV_PATH = "euro2024_midfielders_summary_360plus.csv"
     
     if not os.path.exists(CSV_PATH):
         st.error(f"CSV file not found at {CSV_PATH}")
-        return pd.DataFrame()  # return empty DataFrame to avoid breaking the app
+        return pd.DataFrame()  # return empty DataFrame to avoid further crashes
     
-    return pd.read_csv(CSV_PATH)
+    df = pd.read_csv(CSV_PATH)
+
+    # Optional: keep only needed columns
+    columns_to_keep = [
+        "player_id",
+        "player_name",
+        "matches_played",
+        "total_minutes_played",
+        "total_passes",
+        "passes_per90",
+        "total_shot_assists",
+        "total_goal_assists",
+        "shot_assists_per90",
+        "goal_assists_per90"
+    ]
+    df = df[[col for col in columns_to_keep if col in df.columns]]
+    
+    return df
 
 full_stats = load_data()
+
+# Stop execution if CSV is missing
+if full_stats.empty:
+    st.stop()
 
 
 # ---------------------------
