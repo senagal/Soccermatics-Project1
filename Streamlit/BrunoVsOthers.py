@@ -124,7 +124,7 @@ if selected_matches:
         label=f"Goal Assists: {len(goal_assists)}"
     )
     
-    plt.title(f"{PLAYER_NAME}: Pass Map (Portugal's goal is on the left)", fontsize=22)
+    plt.title(f"{PLAYER_NAME}: Pass Map (Portugal's goalpost is always on the left)", fontsize=22)
     
     # Legend inside bottom-left of pitch
     plt.legend(loc='lower left', fontsize=10, frameon=True, facecolor='white', framealpha=0.8)
@@ -185,4 +185,12 @@ st.plotly_chart(fig_bar, use_container_width=True)
 # Player Table
 # ---------------------------
 st.subheader("Full Player Comparison Table")
-st.dataframe(full_stats.sort_values(metric, ascending=False).reset_index(drop=True))
+
+# Sort by selected metric
+df_table = full_stats.sort_values(metric, ascending=False)
+
+# Drop the last column
+df_table = df_table.iloc[:, :-1]
+
+# Display without the sequential index column
+st.dataframe(df_table, hide_index=True)
