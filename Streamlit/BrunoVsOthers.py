@@ -53,6 +53,11 @@ hover_cols = [
     "shot_assists_per90", "goal_assists_per90"
 ]
 
+# Build hover_data dict safely
+hover_dict = {"is_bruno": False}
+for col in hover_cols:
+    hover_dict[col] = True
+
 fig_bar = px.bar(
     full_stats,
     x=metric,
@@ -60,7 +65,7 @@ fig_bar = px.bar(
     orientation='h',
     color="is_bruno",
     color_discrete_map={True: 'red', False: 'blue'},
-    hover_data={"is_bruno": False, **{col: True for col in hover_cols}}
+    hover_data=hover_dict
 )
 
 fig_bar.update_layout(
@@ -72,6 +77,7 @@ fig_bar.update_layout(
 )
 
 st.plotly_chart(fig_bar, use_container_width=True)
+
 # ---------------------------
 # Player Table
 # ---------------------------
