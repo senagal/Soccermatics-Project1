@@ -91,42 +91,44 @@ if selected_matches:
 
     # Create larger pitch
     pitch = Pitch(pitch_type="statsbomb", line_color="black")
-    fig, ax = pitch.draw(figsize=(14, 9))  # increased size
-
+    fig, ax = pitch.draw(figsize=(18, 12))  # increased size
+    
     colors = ["#032dff", "#03ff0b", "#ee03ff", "#ff7700", "#00ffff"]
     color_map = dict(zip(selected_matches, colors))
-
+    
     for m_id in selected_matches:
         match_passes = passes[passes["match_id"] == m_id]
         pitch.arrows(
             match_passes["x"], match_passes["y"],
             match_passes["end_x"], match_passes["end_y"],
             ax=ax,
-            width=1.5, headwidth=5, headlength=5,  # larger arrows
+            width=2, headwidth=6, headlength=6,  # slightly larger arrows
             color=color_map[m_id],
             alpha=1.0,
             label=f"{match_team_names[m_id]} — Passes: {len(match_passes)}"
         )
-
+    
     # Plot assists
     pitch.arrows(
         shot_assists["x"], shot_assists["y"],
         shot_assists["end_x"], shot_assists["end_y"],
-        ax=ax, width=3.5, headwidth=8, headlength=8,
+        ax=ax, width=4, headwidth=10, headlength=10,
         color="red", alpha=1.0,
         label=f"Shot Assists: {len(shot_assists)}"
     )
     pitch.arrows(
         goal_assists["x"], goal_assists["y"],
         goal_assists["end_x"], goal_assists["end_y"],
-        ax=ax, width=4, headwidth=9, headlength=9,
+        ax=ax, width=5, headwidth=12, headlength=12,
         color="yellow", alpha=1.0,
         label=f"Goal Assists: {len(goal_assists)}"
     )
-
-    plt.title(f"{PLAYER_NAME}: Pass Map (Portugal's goal is on the left)", fontsize=20)
-    # Reduce legend size and move outside pitch
-    plt.legend(bbox_to_anchor=(1.02, 1), loc="upper left", fontsize=6, markerscale=0.6)
+    
+    plt.title(f"{PLAYER_NAME}: Pass Map (Portugal's goal is on the left)", fontsize=22)
+    
+    # Legend inside bottom-left of pitch
+    plt.legend(loc='lower left', fontsize=10, frameon=True, facecolor='white', framealpha=0.8)
+    
     st.pyplot(fig, use_container_width=True)
 else:
     st.warning("Please select at least one match.")
