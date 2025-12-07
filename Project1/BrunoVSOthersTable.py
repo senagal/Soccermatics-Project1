@@ -111,7 +111,7 @@ for match_id in match_ids:
         player_stats[pid]['total_goal_assists'] += len(goal_assists)
 
 # -------------------------------
-# Build summary dataframe (only players > 150 minutes)
+# Build summary dataframe (only players with >360 minutes)
 # -------------------------------
 summary_df = pd.DataFrame([
     {
@@ -129,12 +129,11 @@ summary_df = pd.DataFrame([
         'goal_assists_per90': round(stats['total_goal_assists'] / stats['total_minutes'] * 90, 2)
             if stats['total_minutes'] > 0 else 0
     }
-    for pid, stats in player_stats.items() if stats['total_minutes'] > 150
+    for pid, stats in player_stats.items() if stats['total_minutes'] > 360
 ])
-
 
 # -------------------------------
 # Save to CSV
 # -------------------------------
-summary_df.to_csv("euro2024_midfielders_summary.csv", index=False)
-print("Data saved to euro2024_midfielders_summary.csv")
+summary_df.to_csv("euro2024_midfielders_summary_360plus.csv", index=False)
+print("Data saved to euro2024_midfielders_summary_360plus.csv")
