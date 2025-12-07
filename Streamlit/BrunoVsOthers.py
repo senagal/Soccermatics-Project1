@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-
+import os
 st.set_page_config(page_title="Bruno vs Other midfielders in the EURO 2024", layout="wide")
 
 # ---------------------------
@@ -9,10 +9,11 @@ st.set_page_config(page_title="Bruno vs Other midfielders in the EURO 2024", lay
 # ---------------------------
 @st.cache_data
 def load_data():
-    # Read the precomputed CSV with players > 150 minutes
-    df = pd.read_csv("euro2024_midfielders_summary.csv")
-    return df
+    BASE_DIR = os.path.dirname(__file__)   # folder of current .py file
+    CSV_PATH = os.path.join(BASE_DIR, "euro2024_midfielders_summary.csv")
 
+    df = pd.read_csv(CSV_PATH)
+    return df
 full_stats = load_data()
 
 # ---------------------------
