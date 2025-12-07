@@ -118,15 +118,20 @@ summary_df = pd.DataFrame([
         'player_id': pid,
         'player_name': stats['player_name'],
         'matches_played': stats['matches_played'],
-        'total_minutes_played': round(stats['total_minutes'],2),
+        'total_minutes_played': round(stats['total_minutes'], 2),
         'total_passes': stats['total_passes'],
+        'passes_per90': round(stats['total_passes'] / stats['total_minutes'] * 90, 2) 
+            if stats['total_minutes'] > 0 else 0,
         'total_shot_assists': stats['total_shot_assists'],
         'total_goal_assists': stats['total_goal_assists'],
-        'shot_assists_per90': round(stats['total_shot_assists']/stats['total_minutes']*90,2) if stats['total_minutes']>0 else 0,
-        'goal_assists_per90': round(stats['total_goal_assists']/stats['total_minutes']*90,2) if stats['total_minutes']>0 else 0
+        'shot_assists_per90': round(stats['total_shot_assists'] / stats['total_minutes'] * 90, 2)
+            if stats['total_minutes'] > 0 else 0,
+        'goal_assists_per90': round(stats['total_goal_assists'] / stats['total_minutes'] * 90, 2)
+            if stats['total_minutes'] > 0 else 0
     }
     for pid, stats in player_stats.items() if stats['total_minutes'] > 150
 ])
+
 
 # -------------------------------
 # Save to CSV

@@ -30,7 +30,7 @@ peers_df = full_stats[full_stats['player_id'] != BRUNO_ID]
 # ---------------------------
 metric = st.selectbox(
     "Choose metric to compare",
-    ["total_passes", "total_shot_assists", "total_goal_assists", 
+    ["total_passes", "passes_per90", "total_shot_assists", "total_goal_assists", 
      "shot_assists_per90", "goal_assists_per90", "total_minutes_played", "matches_played"]
 )
 
@@ -40,7 +40,13 @@ st.write("This comparison only includes players with above 150 total minutes pla
 # Horizontal Bar Chart (Plotly)
 # ---------------------------
 st.subheader("Horizontal Bar Chart")
-hover_cols = ["matches_played", "total_minutes_played", "total_passes", "total_shot_assists", "total_goal_assists", "shot_assists_per90", "goal_assists_per90"]
+hover_cols = [
+    "matches_played", "total_minutes_played", 
+    "total_passes", "passes_per90",
+    "total_shot_assists", "total_goal_assists", 
+    "shot_assists_per90", "goal_assists_per90"
+]
+
 
 fig_bar = px.bar(
     full_stats,
