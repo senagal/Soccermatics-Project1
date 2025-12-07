@@ -6,7 +6,7 @@ import pandas as pd
 # -------------------------------
 COMPETITION_ID = 55   # Euro 2024
 SEASON_ID = 282
-POSITION_IDS = [9, 11, 19]  # Target positions
+TARGET_POSITIONS = [9, 11, 19]  # Midfield/forward roles
 
 parser = Sbopen(dataframe=True)
 
@@ -27,22 +27,22 @@ def timestamp_to_min(ts):
     return float(ts)
 
 # -------------------------------
-# Dictionary to store stats per player
+# Store player stats
 # -------------------------------
 player_stats = {}
 
 # -------------------------------
-# Loop over matches
+# Loop through matches
 # -------------------------------
 for match_id in match_ids:
     df, related, freeze, tactics = parser.event(match_id)
-    
-    # Filter only relevant positions
-    players_in_match = df[df['position_id'].isin(POSITION_IDS)]['player_id'].unique()
-    
+
+    # Filter players in target positions
+    players_in_match = df[df['position_id'].isin(TARGET_POSITIONS)]['player_id'].unique()
+
     for pid in players_in_match:
-        player_events = df[df['player_id'] == pid].copy()
-        if player_events.empty:
+        events = df[df['player_id'] == pid].copy()
+        if events.empty:
             continue
 
         # Compute match end times
@@ -51,13 +51,13 @@ for match_id in match_ids:
         total_match_min = p1_end + p2_end
         half2_offset = p1_end
 
-        # Determine minute in match
-        player_events['minute'] = player_events.apply(
+        # Minute in match
+        events['minute'] = events.apply(
             lambda row: timestamp_to_min(row.timestamp) + (half2_offset if row.period==2 else 0),
             axis=1
         )
 
-        # Starting XI check
+        # Starting XI
         started = False
         if isinstance(tactics, list):
             for t in tactics:
@@ -70,42 +70,40 @@ for match_id in match_ids:
         enter_min = 0 if started else None
         exit_min = total_match_min
 
-        sub_in = player_events[(player_events.type_name=="Substitution") & (player_events.substitution_replacement_id==pid)]
-        sub_out = player_events[(player_events.type_name=="Substitution") & (player_events.player_id==pid)]
+        sub_in = events[(events.type_name=="Substitution") & (events.substitution_replacement_id==pid)]
+        sub_out = events[(events.type_name=="Substitution") & (events.player_id==pid)]
 
         if not sub_in.empty:
             enter_min = sub_in['minute'].iloc[0]
         if not sub_out.empty:
             exit_min = sub_out['minute'].iloc[0]
 
-        red_card_min = None
-        if 'foul_committed_card' in player_events.columns:
-            red = player_events[(player_events.type_name=="Foul Committed") & (player_events.foul_committed_card=="Red Card")]
+        # Red card
+        if 'foul_committed_card' in events.columns:
+            red = events[(events.type_name=="Foul Committed") & (events.foul_committed_card=="Red Card")]
             if not red.empty:
-                red_card_min = red['minute'].iloc[0]
-                exit_min = min(exit_min, red_card_min)
+                exit_min = min(exit_min, red['minute'].iloc[0])
 
-        # Minutes played
         if enter_min is None:
             enter_min = 0
         minutes_played = exit_min - enter_min
 
-        # Passes & assists
-        passes = player_events[player_events.type_name=="Pass"]
-        shot_assists = passes[passes.pass_assisted_shot_id.notna()]
-        goal_assists = shot_assists[shot_assists.outcome_name=="Goal"]
+        # Passes & assists (using StatsBomb flags)
+        passes = events[events.type_name=="Pass"]
+        shot_assists = passes[passes['pass_shot_assist'] == True] if 'pass_shot_assist' in passes.columns else passes.iloc[0:0]
+        goal_assists = passes[passes['pass_goal_assist'] == True] if 'pass_goal_assist' in passes.columns else passes.iloc[0:0]
 
         # Aggregate stats
         if pid not in player_stats:
             player_stats[pid] = {
-                'player_name': player_events['player_name'].iloc[0],
+                'player_name': events['player_name'].iloc[0],
                 'matches_played': 0,
                 'total_minutes': 0,
                 'total_passes': 0,
                 'total_shot_assists': 0,
                 'total_goal_assists': 0
             }
-        
+
         player_stats[pid]['matches_played'] += 1
         player_stats[pid]['total_minutes'] += minutes_played
         player_stats[pid]['total_passes'] += len(passes)
@@ -113,7 +111,7 @@ for match_id in match_ids:
         player_stats[pid]['total_goal_assists'] += len(goal_assists)
 
 # -------------------------------
-# Build summary dataframe
+# Build summary dataframe (only players > 150 minutes)
 # -------------------------------
 summary_df = pd.DataFrame([
     {

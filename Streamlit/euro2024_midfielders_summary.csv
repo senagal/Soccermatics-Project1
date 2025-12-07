@@ -2,25 +2,25 @@ player_id,player_name,matches_played,total_minutes_played,total_passes,total_sho
 99174.0,Kobbie Mainoo,5,425.88,201,4,0,0.85,0.0
 21582.0,Tijjani Reijnders,6,530.6,269,2,0,0.34,0.0
 15503.0,Jerdy Schouten,6,537.18,328,3,0,0.5,0.0
-3943.0,Declan Rice,7,673.17,536,4,0,0.53,0.0
-39167.0,Xavi Simons,5,455.28,156,9,0,1.78,0.0
+3943.0,Declan Rice,7,673.17,536,3,1,0.4,0.13
+39167.0,Xavi Simons,5,455.28,156,6,3,1.19,0.59
 21633.0,Joey Veerman,4,357.22,131,5,0,1.26,0.0
 29399.0,Conor Gallagher,5,435.05,55,0,0,0.0,0.0
-16532.0,Daniel Olmo Carvajal,5,452.22,139,8,0,1.59,0.0
+16532.0,Daniel Olmo Carvajal,5,452.22,139,7,1,1.39,0.2
 4354.0,Phil Foden,2,189.05,78,2,0,0.95,0.0
 6765.0,Rodrigo Hernández Cascante,6,523.15,436,6,0,1.03,0.0
-6655.0,Fabián Ruiz Peña,5,471.17,362,8,0,1.53,0.0
+6655.0,Fabián Ruiz Peña,5,471.17,362,6,2,1.15,0.38
 24921.0,Martín Zubimendi Ibáñez,3,289.75,115,2,0,0.62,0.0
-30714.0,Jude Bellingham,6,465.15,319,5,0,0.97,0.0
+30714.0,Jude Bellingham,6,465.15,319,4,1,0.77,0.19
 3042.0,Mikel Merino Zazón,6,579.55,136,4,0,0.62,0.0
 10481.0,Aurélien Djani Tchouaméni,2,194.37,144,0,0,0.0,0.0
 5487.0,Antoine Griezmann,4,351.58,126,4,0,1.02,0.0
 24778.0,Eduardo Camavinga,2,198.23,20,2,0,0.91,0.0
 7039.0,Hakan Çalhanoğlu,4,375.83,258,4,0,0.96,0.0
 9085.0,Salih Özcan,4,322.08,72,0,0,0.0,0.0
-2988.0,Memphis Depay,2,188.02,72,4,0,1.91,0.0
+2988.0,Memphis Depay,2,188.02,72,3,1,1.44,0.48
 12555.0,Okay Yokuşlu,2,199.03,24,0,0,0.0,0.0
-116587.0,Arda Güler,2,194.27,74,2,0,0.93,0.0
+116587.0,Arda Güler,2,194.27,74,1,1,0.46,0.46
 12169.0,João Maria Lobo Alves Palhinha Gonçalves,4,280.93,185,1,0,0.32,0.0
 34639.0,Vitor Machado Ferreira,4,259.25,326,4,0,1.39,0.0
 5204.0,Bruno Miguel Borges Fernandes,4,362.43,296,8,0,1.99,0.0
@@ -29,19 +29,19 @@ player_id,player_name,matches_played,total_minutes_played,total_passes,total_sho
 40874.0,Matheus Luiz Nunes,2,189.47,17,1,0,0.48,0.0
 8518.0,Marcel Sabitzer,2,199.45,70,4,0,1.8,0.0
 39460.0,Nicolas Seiwald,4,390.93,230,5,0,1.15,0.0
-11396.0,Florian Grillitsch,4,268.35,163,2,0,0.67,0.0
+11396.0,Florian Grillitsch,4,268.35,163,1,1,0.34,0.34
 3567.0,Georginio Wijnaldum,2,195.37,12,0,0,0.0,0.0
 8506.0,Konrad Laimer,4,351.87,128,2,0,0.51,0.0
-24977.0,Christoph Baumgartner,4,376.68,108,6,0,1.43,0.0
+24977.0,Christoph Baumgartner,4,376.68,108,5,1,1.19,0.24
 3570.0,Pierre-Emile Højbjerg,4,376.68,298,3,0,0.72,0.0
 8621.0,Morten Hjulmand,3,250.5,215,4,0,1.44,0.0
 7097.0,Christian Nørgaard,3,291.77,42,1,0,0.31,0.0
 3500.0,Granit Xhaka,5,480.3,405,8,0,1.5,0.0
-6983.0,Remo Freuler,5,367.82,235,3,0,0.73,0.0
+6983.0,Remo Freuler,5,367.82,235,1,2,0.24,0.49
 11457.0,Vincent Sierro,3,289.2,16,0,0,0.0,0.0
 5574.0,Toni Kroos,5,473.62,545,15,0,2.85,0.0
 3493.0,Emre Can,4,342.07,72,1,0,0.26,0.0
-10287.0,İlkay Gündoğan,5,407.88,168,2,0,0.44,0.0
+10287.0,İlkay Gündoğan,5,407.88,168,1,1,0.22,0.22
 9195.0,Robert Andrich,5,355.28,234,3,0,0.76,0.0
 8966.0,Kai Havertz,3,197.93,82,1,0,0.45,0.0
 3089.0,Kevin De Bruyne,4,386.18,228,10,0,2.33,0.0
@@ -52,29 +52,29 @@ player_id,player_name,matches_played,total_minutes_played,total_passes,total_sho
 16557.0,Ruslan Malinovskiy,2,192.28,27,2,0,0.94,0.0
 28034.0,Lukáš Provod,3,243.75,88,2,0,0.74,0.0
 4870.0,Tomáš Souček,3,297.58,88,5,0,1.51,0.0
-78241.0,İsmail Yüksek,3,220.48,99,3,0,1.22,0.0
-12293.0,Kaan Ayhan,3,239.33,108,4,0,1.5,0.0
+78241.0,İsmail Yüksek,3,220.48,99,2,1,0.82,0.41
+12293.0,Kaan Ayhan,3,239.33,108,3,1,1.13,0.38
 22212.0,Orkun Kökçü,3,228.35,114,1,0,0.39,0.0
-15896.0,Timi Elšnik,4,261.75,118,3,0,1.03,0.0
+15896.0,Timi Elšnik,4,261.75,118,2,1,0.69,0.34
 31968.0,Adam Gnezda Čerin,4,383.65,165,2,0,0.47,0.0
 11416.0,Jon Gorenc Stankovič,3,289.58,20,0,0,0.0,0.0
 6798.0,Stanislav Lobotka,2,201.67,106,1,0,0.45,0.0
-30179.0,Ivan Ilić,3,261.72,152,3,0,1.03,0.0
+30179.0,Ivan Ilić,3,261.72,152,2,1,0.69,0.34
 6687.0,Saša Lukić,3,215.23,150,0,0,0.0,0.0
 5527.0,Thomas Delaney,3,266.22,36,1,0,0.34,0.0
 24438.0,Ylber Ramadani,2,194.08,82,1,0,0.46,0.0
 57303.0,Kristjan Asllani,3,293.8,193,8,0,2.45,0.0
 42822.0,András Schäfer,3,297.45,131,0,0,0.0,0.0
 31067.0,Billy Gilmour,2,165.48,101,0,0,0.0,0.0
-10534.0,Callum McGregor,3,269.68,114,2,0,0.67,0.0
+10534.0,Callum McGregor,3,269.68,114,1,1,0.33,0.33
 7162.0,Ádám Nagy,3,237.1,70,0,0,0.0,0.0
 9478.0,Kenneth McLean,2,199.7,19,0,0,0.0,0.0
 3961.0,N'Golo Kanté,2,196.67,114,5,0,2.29,0.0
 16502.0,László Kleinheisler,2,194.9,17,0,0,0.0,0.0
-21294.0,Mykola Shaparenko,2,156.63,97,1,0,0.57,0.0
+21294.0,Mykola Shaparenko,2,156.63,97,0,1,0.0,0.57
 144127.0,Volodymyr Brazhko,2,181.8,61,1,0,0.5,0.0
 38975.0,Georgiy Sudakov,2,180.65,79,2,0,1.0,0.0
-41202.0,Giorgi Kochorashvili,2,199.57,113,1,0,0.45,0.0
+41202.0,Giorgi Kochorashvili,2,199.57,113,0,1,0.0,0.45
 264017.0,Anzor Mekvabishvili,2,190.5,81,0,0,0.0,0.0
 143859.0,João Neves,2,172.87,74,0,0,0.0,0.0
 16344.0,Răzvan Gabriel Marin,2,184.83,40,1,0,0.49,0.0
