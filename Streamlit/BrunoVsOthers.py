@@ -37,37 +37,41 @@ metric = st.selectbox(
 st.title("Bruno Fernandes vs Other midfielders in the EURO 2024")
 st.write("This comparison only includes players with above 150 total minutes played")
 # ---------------------------
+# Create highlight column
+# ---------------------------
+full_stats["is_bruno"] = full_stats["player_id"] == BRUNO_ID
+
+# ---------------------------
 # Horizontal Bar Chart (Plotly)
 # ---------------------------
 st.subheader("Horizontal Bar Chart")
+
 hover_cols = [
-    "matches_played", "total_minutes_played", 
+    "matches_played", "total_minutes_played",
     "total_passes", "passes_per90",
-    "total_shot_assists", "total_goal_assists", 
+    "total_shot_assists", "total_goal_assists",
     "shot_assists_per90", "goal_assists_per90"
 ]
-
 
 fig_bar = px.bar(
     full_stats,
     x=metric,
     y='player_name',
     orientation='h',
-    color=full_stats['player_id'] == BRUNO_ID,
+    color="is_bruno",
     color_discrete_map={True: 'red', False: 'blue'},
-    hover_data=hover_cols
+    hover_data={"is_bruno": False, **{col: True for col in hover_cols}}
 )
 
 fig_bar.update_layout(
-    yaxis={'categoryorder':'total ascending'},
-    xaxis_title=metric.replace('_',' ').title(),
+    yaxis={'categoryorder': 'total ascending'},
+    xaxis_title=metric.replace('_', ' ').title(),
     yaxis_title="Players",
     showlegend=False,
-    height=max(600, len(full_stats)*20)
+    height=max(600, len(full_stats) * 20)
 )
 
 st.plotly_chart(fig_bar, use_container_width=True)
-
 # ---------------------------
 # Player Table
 # ---------------------------
