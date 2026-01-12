@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 import os
 import matplotlib.lines as mlines
+import plotly.express as px
 
 st.set_page_config(page_title="Bruno vs Other midfielders in the EURO 2024", layout="wide")
 
@@ -175,13 +176,61 @@ if selected_match_ids:
     plt.title(f"{PLAYER_NAME} – Pass Map with Zones (EURO 2024)", fontsize=16)
     st.pyplot(fig, use_container_width=True)
 
-    # Display summary table
-    st.subheader("Zone Summary Table (Counts per Zone)")
-    summary_df = pd.DataFrame(
-        {match_names[m_id]: counts for m_id, counts in summary_table.items()},
-        index=[f"Zone {i}" for i in range(1, 7)]
+    # ---------------------------
+    # Metric selection for the bar chart (below pitch map)
+    # ---------------------------
+    metric = st.selectbox(
+        "Choose metric to compare for bar chart",
+        ["total_passes", "passes_per90", "total_shot_assists", "total_goal_assists", 
+         "shot_assists_per90", "goal_assists_per90", "total_minutes_played", "matches_played"]
     )
-    st.dataframe(summary_df)
+
+    # ---------------------------
+    # Horizontal Bar Chart
+    # ---------------------------
+    st.subheader("Bruno Fernandes vs Other midfielders in the EURO 2024")
+    st.write("This comparison only includes players with above 360 total minutes played")
+
+    full_stats["highlight"] = full_stats["player_id"].apply(lambda x: "Bruno" if x == BRUNO_ID else "Peer")
+
+    hover_cols = [
+        "matches_played", "total_minutes_played",
+        "total_passes", "passes_per90",
+        "total_shot_assists", "total_goal_assists",
+        "shot_assists_per90", "goal_assists_per90"
+    ]
+    hover_cols = [col for col in hover_cols if col in full_stats.columns]
+
+    fig_bar = px.bar(
+        full_stats,
+        x=metric,
+        y='player_name',
+        orientation='h',
+        color="highlight",
+        color_discrete_map={"Bruno": "red", "Peer": "blue"},
+        hover_data=hover_cols
+    )
+
+    fig_bar.update_yaxes(tickfont=dict(size=14, family='Arial Black'))
+
+    fig_bar.update_layout(
+        yaxis={'categoryorder': 'total ascending'},
+        xaxis_title=metric.replace('_', ' ').title(),
+        yaxis_title="Players",
+        showlegend=False,
+        height=max(600, len(full_stats) * 25)
+    )
+
+    st.plotly_chart(fig_bar, use_container_width=True)
+
+    # ---------------------------
+    # Player Table
+    # ---------------------------
+    st.subheader("Full Player Comparison Table")
+
+    df_table = full_stats.sort_values(metric, ascending=False)
+    df_table = df_table.iloc[:, :-1]  # Drop last column if needed
+    st.dataframe(df_table, hide_index=True)
 
 else:
     st.warning("Please select at least one match.")
