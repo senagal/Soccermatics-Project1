@@ -226,17 +226,21 @@ if selected_match_ids:
     fig_bar.update_layout(
         yaxis=dict(
             categoryorder='total ascending',
-            title_font=dict(size=16, family='Arial Black', color='black'),
-            tickfont=dict(size=14, family='Arial Black', color='black')
+            title_font=dict(size=16, family='Arial Black', color='black'),  # y-axis title bold
+            tickfont=dict(size=14, family='Arial Black', color='black')     # y-axis labels bold & black
         ),
         xaxis=dict(
-            title_font=dict(size=16, family='Arial Black', color='black'),
-            tickfont=dict(size=14, family='Arial Black', color='black')
+            title_font=dict(size=16, family='Arial Black', color='black'),  # x-axis title bold
+            tickfont=dict(size=14, family='Arial Black', color='black')     # x-axis ticks bold & black
         ),
+        legend=dict(
+            font=dict(size=14, family='Arial Black', color='black')         # legend bold
+        ),
+        font=dict(family="Arial Black", size=14, color="black"),            # general font bold
         showlegend=True,
-        height=max(600, len(full_stats) * 25),
-        font=dict(family="Arial Black", size=14, color="black")  # general font bold
+        height=max(600, len(full_stats) * 25)
     )
+
 
 
     st.plotly_chart(fig_bar, use_container_width=True)
