@@ -24,7 +24,8 @@ full_stats = load_data()
 # Constants
 # ---------------------------
 BRUNO_ID = 5204
-PLAYER_ID = 5204
+DEBRUYNE_ID = 3089
+PLAYER_ID = BRUNO_ID
 PLAYER_NAME = "Bruno Fernandes"
 
 st.title("Bruno's passes in the matches he played in EURO 2024")
@@ -188,10 +189,19 @@ if selected_match_ids:
     # ---------------------------
     # Horizontal Bar Chart
     # ---------------------------
-    st.subheader("Bruno Fernandes vs Other midfielders in the EURO 2024")
+    st.subheader("Bruno Fernandes vs Kevin De Bruyne vs Other midfielders in the EURO 2024")
     st.write("This comparison only includes players with above 360 total minutes played")
 
-    full_stats["highlight"] = full_stats["player_id"].apply(lambda x: "Bruno" if x == BRUNO_ID else "Peer")
+    # Highlight Bruno and De Bruyne
+    def highlight_players(pid):
+        if pid == BRUNO_ID:
+            return "Bruno"
+        elif pid == DEBRUYNE_ID:
+            return "De Bruyne"
+        else:
+            return "Peer"
+
+    full_stats["highlight"] = full_stats["player_id"].apply(highlight_players)
 
     hover_cols = [
         "matches_played", "total_minutes_played",
@@ -207,7 +217,7 @@ if selected_match_ids:
         y='player_name',
         orientation='h',
         color="highlight",
-        color_discrete_map={"Bruno": "red", "Peer": "blue"},
+        color_discrete_map={"Bruno": "red", "De Bruyne": "orange", "Peer": "blue"},
         hover_data=hover_cols
     )
 
@@ -217,7 +227,7 @@ if selected_match_ids:
         yaxis={'categoryorder': 'total ascending'},
         xaxis_title=metric.replace('_', ' ').title(),
         yaxis_title="Players",
-        showlegend=False,
+        showlegend=True,
         height=max(600, len(full_stats) * 25)
     )
 
@@ -226,11 +236,18 @@ if selected_match_ids:
     # ---------------------------
     # Player Table
     # ---------------------------
-    st.subheader("Full Player Comparison Table")
+    st.subheader("Full Player Comparison Table (Highlighted Bruno & De Bruyne)")
 
     df_table = full_stats.sort_values(metric, ascending=False)
     df_table = df_table.iloc[:, :-1]  # Drop last column if needed
     st.dataframe(df_table, hide_index=True)
+
+    # ---------------------------
+    # Generate summary for report
+    # ---------------------------
+    summary_stats = full_stats[full_stats["player_id"].isin([BRUNO_ID, DEBRUYNE_ID])]
+    st.subheader("Summary of Bruno Fernandes & Kevin De Bruyne")
+    st.dataframe(summary_stats)
 
 else:
     st.warning("Please select at least one match.")

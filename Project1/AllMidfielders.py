@@ -44,7 +44,10 @@ position_counts = df_players.groupby(
     ['player_id', 'player_name', 'position_id', 'position_name']
 ).size().reset_index(name='appearances')
 
-# Optionally sort by number of appearances
+# Sort by number of appearances
 position_counts = position_counts.sort_values(by='appearances', ascending=False)
 
-print(position_counts)
+# Save to CSV
+position_counts.to_csv("target_positions_appearances.csv", index=False)
+
+print("Saved target positions appearances to 'target_positions_appearances.csv'")
