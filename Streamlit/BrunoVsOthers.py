@@ -101,7 +101,7 @@ if selected_match_ids:
     y_bins = [0, pitch_width/2, pitch_width]
 
     # Prepare figure
-    fig, ax = pitch.draw(figsize=(14, 10))
+    fig, ax = pitch.draw(figsize=(10, 6))
 
     # Draw zone lines
     for xb in x_bins[1:-1]:
@@ -174,8 +174,7 @@ if selected_match_ids:
               ncol=2, fontsize=12)
 
     # Title
-    plt.title(f"{PLAYER_NAME} – Pass Map with Zones (EURO 2024)", fontsize=16)
-    plt.title("Portugal(Left):Opponent(Right)", fontsize=12)
+    plt.title(f"{PLAYER_NAME} – Pass Map with Zones (EURO 2024)\nPortugal (Left) : Opponent (Right)",fontsize=16)
     st.pyplot(fig, use_container_width=True)
 
     # ---------------------------
@@ -264,6 +263,7 @@ if selected_match_ids:
 
 else:
     st.warning("Please select at least one match.")
+
 
 
 
