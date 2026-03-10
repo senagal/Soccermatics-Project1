@@ -29,7 +29,7 @@ PLAYER_ID = BRUNO_ID
 PLAYER_NAME = "Bruno Fernandes"
 
 st.title("Bruno's passes in the matches he played in EURO 2024")
-
+st.title("Portugal(Left):Opponent(Right)")
 # ---------------------------
 # StatsBomb parser
 # ---------------------------
@@ -263,3 +263,4 @@ if selected_match_ids:
 
 else:
     st.warning("Please select at least one match.")
+
