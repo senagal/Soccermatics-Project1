@@ -101,7 +101,7 @@ if selected_match_ids:
     y_bins = [0, pitch_width/2, pitch_width]
 
     # Prepare figure
-    fig, ax = pitch.draw(figsize=(14, 4))
+    fig, ax = pitch.draw(figsize=(12, 8))
 
     # Draw zone lines
     for xb in x_bins[1:-1]:
@@ -263,6 +263,7 @@ if selected_match_ids:
 
 else:
     st.warning("Please select at least one match.")
+
 
 
 
