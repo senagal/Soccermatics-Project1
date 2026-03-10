@@ -29,7 +29,7 @@ PLAYER_ID = BRUNO_ID
 PLAYER_NAME = "Bruno Fernandes"
 
 st.title("Bruno's passes in the matches he played in EURO 2024")
-st.title("Portugal(Left):Opponent(Right)")
+
 # ---------------------------
 # StatsBomb parser
 # ---------------------------
@@ -175,6 +175,7 @@ if selected_match_ids:
 
     # Title
     plt.title(f"{PLAYER_NAME} – Pass Map with Zones (EURO 2024)", fontsize=16)
+    plt.title("Portugal(Left):Opponent(Right)", fontsize=12)
     st.pyplot(fig, use_container_width=True)
 
     # ---------------------------
@@ -263,5 +264,6 @@ if selected_match_ids:
 
 else:
     st.warning("Please select at least one match.")
+
 
 
